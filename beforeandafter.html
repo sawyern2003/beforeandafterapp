@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before & After Pro | Instant, Branded Images for Clinics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63-21c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23e2e8f0'/%3E%3C/svg%3E");
+            background-size: 200px;
+        }
+        .file-input-container {
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .file-input-container:hover, .file-input-container.dragover {
+            border-color: #4f46e5;
+            background-color: #f0f0ff;
+        }
+        .file-input-label {
+            cursor: pointer;
+        }
+        .format-label {
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            flex-grow: 1;
+        }
+        input[type="radio"]:checked + .format-label {
+            background-color: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+        /* Hide the actual color input but keep it functional */
+        .color-picker-input {
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+        .disabled-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(241, 245, 249, 0.6); /* bg-slate-100 with opacity */
+            z-index: 10;
+            cursor: not-allowed;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Upgrade Button -->
+    <div class="fixed right-4 top-4 z-50 flex gap-2 items-center">
+      <button id="plan-pill" class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-700"></button>
+      <a id="upgrade-btn" href="#"
+         target="_blank" rel="noopener"
+         class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg shadow">
+         Upgrade to Pro (£29/mo)
+      </a>
+    </div>
+
+    <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header Section -->
+        <header class="text-center py-16 md:py-20">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                 <svg class="h-10 w-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.776 48.776 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                </svg>
+                <span class="font-bold text-3xl text-slate-900">Before & After Pro</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                The Fastest Way to Create Professional Before & Afters
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
+                Stop wasting time in Canva. Create stunning, branded, and compliant before-and-after photos for your clinic in seconds.
+            </p>
+        </header>
+
+        <!-- Main App Section -->
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Step 1: Controls -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2">Controls</h2>
+                
+                <!-- Format Selection -->
+                <div class="mb-6">
+                    <h3 class="font-semibold text-slate-700 mb-2">Format</h3>
+                    <div id="format-selector" class="flex justify-between gap-2 text-sm">
+                        <input type="radio" name="aspectRatio" value="square" id="format-square" class="hidden" checked>
+                        <label for="format-square" class="format-label">Square (1:1)</label>
+                        <input type="radio" name="aspectRatio" value="portrait" id="format-portrait" class="hidden">
+                        <label for="format-portrait" class="format-label">Portrait (4:5)</label>
+                        <input type="radio" name="aspectRatio" value="landscape" id="format-landscape" class="hidden">
+                        <label for="format-landscape" class="format-label">Landscape</label>
+                    </div>
+                </div>
+
+                <!-- Font Selection -->
+                <div class="mb-6">
+                    <h3 class="font-semibold text-slate-700 mb-2">Font</h3>
+                    <select id="font-selector" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                        <option value="Inter">Inter</option>
+                        <option value="Poppins">Poppins</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Raleway">Raleway</option>
+                        <option value="Roboto">Roboto</option>
+                    </select>
+                </div>
+
+                <!-- Image Uploads -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div id="before-container" class="file-input-container p-4 text-center">
+                        <label for="before-upload" class="file-input-label flex flex-col items-center justify-center h-full">
+                            <span class="text-indigo-600 font-semibold">Upload Before</span>
+                            <span class="text-xs text-slate-500 mt-1">or drag & drop</span>
+                            <img id="before-preview" class="mt-2 max-h-24 rounded hidden" alt="Before Preview"/>
+                        </label>
+                        <input type="file" id="before-upload" class="hidden" accept="image/*">
+                    </div>
+                    <div id="after-container" class="file-input-container p-4 text-center">
+                        <label for="after-upload" class="file-input-label flex flex-col items-center justify-center h-full">
+                            <span class="text-indigo-600 font-semibold">Upload After</span>
+                            <span class="text-xs text-slate-500 mt-1">or drag & drop</span>
+                            <img id="after-preview" class="mt-2 max-h-24 rounded hidden" alt="After Preview"/>
+                        </label>
+                        <input type="file" id="after-upload" class="hidden" accept="image/*">
+                    </div>
+                </div>
+                
+                <!-- Saved Presets -->
+                <div id="preset-section" class="mb-6 relative">
+                    <h3 class="font-semibold text-slate-700 mb-2">Saved Presets <span class="text-xs bg-indigo-100 text-indigo-700 font-medium px-2 py-1 rounded-full">PRO</span></h3>
+                    <div class="mb-2 flex gap-2 items-end">
+                        <div class="flex-1">
+                            <label for="preset-name" class="block text-sm font-medium text-slate-600">Preset name</label>
+                            <input id="preset-name" class="mt-1 w-full px-3 py-2 border rounded-md text-sm" placeholder="e.g., Oxford Clinic Default">
+                        </div>
+                        <button id="preset-save" class="px-3 py-2 bg-slate-800 text-white rounded-md text-sm">Save</button>
+                    </div>
+                     <div class="flex gap-2 items-center">
+                        <select id="preset-select" class="flex-1 px-3 py-2 border rounded-md text-sm">
+                            <option value="">Load preset…</option>
+                        </select>
+                        <button id="preset-delete" class="px-3 py-2 border rounded-md text-sm text-slate-600 hover:bg-slate-100">Delete</button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button id="preset-export" class="px-3 py-2 border rounded-md text-sm text-slate-600 hover:bg-slate-100">Export preset</button>
+                        <label class="px-3 py-2 border rounded-md text-sm text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            Import preset
+                            <input id="preset-import" type="file" accept="application/json" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Branding -->
+                <div class="mb-6">
+                    <h3 class="font-semibold text-slate-700 mb-2">Branding & Compliance</h3>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div id="logo-container" class="file-input-container p-2 text-center w-1/3">
+                            <label for="logo-upload" class="file-input-label text-sm">
+                                <span class="font-medium text-indigo-600">Add Logo</span>
+                                <img id="logo-preview" class="mt-1 max-h-12 mx-auto rounded hidden" alt="Logo Preview"/>
+                            </label>
+                            <input type="file" id="logo-upload" class="hidden" accept="image/*">
+                        </div>
+                        <div class="flex-grow">
+                            <label for="clinic-name" class="block text-sm font-medium text-slate-600">Clinic Name</label>
+                            <input type="text" id="clinic-name" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="e.g., The Glow Clinic">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="treatment-name" class="block text-sm font-medium text-slate-600">Treatment Name</label>
+                            <input type="text" id="treatment-name" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="e.g., Laser Hair Removal">
+                        </div>
+                        <div class="relative">
+                            <label for="patient-name" class="block text-sm font-medium text-slate-600">Patient/Client Name</label>
+                            <input type="text" id="patient-name" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="e.g., Jane Doe">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="treatment-date" class="block text-sm font-medium text-slate-600">Date of Treatment</label>
+                            <input type="date" id="treatment-date" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm">
+                        </div>
+                        <div class="relative">
+                            <label for="brand-color-text" class="block text-sm font-medium text-slate-600">Label Color</label>
+                            <div class="mt-1 flex items-center gap-2">
+                                <div class="relative">
+                                    <span id="brand-color-preview" class="block w-8 h-8 rounded-full border border-slate-300 cursor-pointer" style="background-color: #000000;"></span>
+                                    <input type="color" id="brand-color-picker" value="#000000" class="color-picker-input">
+                                </div>
+                                <input type="text" id="brand-color-text" value="#000000" class="block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="#000000">
+                            </div>
+                        </div>
+                    </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="relative">
+                            <label for="text-color-text" class="block text-sm font-medium text-slate-600">Text Color</label>
+                            <div class="mt-1 flex items-center gap-2">
+                                <div class="relative">
+                                    <span id="text-color-preview" class="block w-8 h-8 rounded-full border border-slate-300 cursor-pointer" style="background-color: #1e293b;"></span>
+                                    <input type="color" id="text-color-picker" value="#1e293b" class="color-picker-input">
+                                </div>
+                                <input type="text" id="text-color-text" value="#1e293b" class="block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="#1e293b">
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label for="box-color-text" class="block text-sm font-medium text-slate-600">Differences Box Color</label>
+                            <div class="mt-1 flex items-center gap-2">
+                                <div class="relative">
+                                    <span id="box-color-preview" class="block w-8 h-8 rounded-full border border-slate-300 cursor-pointer" style="background-color: #000000;"></span>
+                                    <input type="color" id="box-color-picker" value="#000000" class="color-picker-input">
+                                </div>
+                                <input type="text" id="box-color-text" value="#000000" class="block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="#000000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Differences -->
+                <div class="mb-6 relative">
+                    <h3 class="font-semibold text-slate-700 mb-2">Key Differences (Bullet Points)</h3>
+                    <textarea id="differences-text" rows="3" class="w-full p-2 border border-slate-300 rounded-md text-sm" placeholder="- Reduced redness&#10;- Smoother skin texture"></textarea>
+                </div>
+
+
+                <!-- Image Positioning -->
+                <div class="mb-6 relative">
+                    <h3 class="font-semibold text-slate-700 mb-2">Image Positioning</h3>
+                    <div id="before-slider-container" class="hidden space-y-2">
+                        <p class="text-sm font-medium text-slate-600">Before Image</p>
+                        <div>
+                            <label for="before-zoom-slider" class="block text-xs font-medium text-slate-500">Zoom</label>
+                            <input type="range" id="before-zoom-slider" min="1" max="3" step="0.01" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
+                        </div>
+                        <div>
+                            <label for="before-x-slider" class="block text-xs font-medium text-slate-500">Left/Right</label>
+                            <input type="range" id="before-x-slider" min="0" max="1" step="0.01" value="0.5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
+                        </div>
+                        <div>
+                            <label for="before-y-slider" class="block text-xs font-medium text-slate-500">Up/Down</label>
+                            <input type="range" id="before-y-slider" min="0" max="1" step="0.01" value="0.5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
+                        </div>
+                    </div>
+                    <div id="after-slider-container" class="mt-4 hidden space-y-2">
+                         <p class="text-sm font-medium text-slate-600">After Image</p>
+                        <div>
+                            <label for="after-zoom-slider" class="block text-xs font-medium text-slate-500">Zoom</label>
+                            <input type="range" id="after-zoom-slider" min="1" max="3" step="0.01" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
+                        </div>
+                        <div>
+                            <label for="after-x-slider" class="block text-xs font-medium text-slate-500">Left/Right</label>
+                            <input type="range" id="after-x-slider" min="0" max="1" step="0.01" value="0.5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
+                        </div>
+                        <div>
+                            <label for="after-y-slider" class="block text-xs font-medium text-slate-500">Up/Down</label>
+                            <input type="range" id="after-y-slider" min="0" max="1" step="0.01" value="0.5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Utilities -->
+                <div class="mb-6 border-t pt-6">
+                    <button id="reset-btn" class="w-full bg-slate-200 text-slate-700 font-bold py-2 px-4 rounded-lg hover:bg-slate-300 transition-colors">
+                        Reset All
+                    </button>
+                </div>
+
+                <!-- Export Button -->
+                <button id="export-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed">
+                    Generate & Export PNG
+                </button>
+            </div>
+
+            <!-- Step 2: Preview -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 flex flex-col items-center justify-center">
+                <h2 class="text-xl font-semibold mb-4 w-full border-b pb-2">Preview</h2>
+                <div id="canvas-container" class="w-full max-w-md aspect-square bg-slate-100 rounded-lg flex items-center justify-center">
+                    <canvas id="canvas" class="max-w-full max-h-full rounded-md shadow-inner"></canvas>
+                </div>
+                 <p id="preview-placeholder" class="text-slate-500 mt-4">Your generated image will appear here</p>
+            </div>
+        </main>
+
+        <!-- Feature Comparison Section -->
+        <section class="py-16 md:py-24 border-t mt-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">A Tool Built for Professionals</h2>
+                <p class="mt-4 max-w-xl mx-auto text-lg text-slate-600">Stop using generic tools. Start using a workflow designed for you.</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="font-bold text-slate-800">Feature</div>
+                    <div class="font-bold text-slate-800 text-center">Free</div>
+                    <div class="font-bold text-slate-800 text-center text-indigo-600">Pro</div>
+
+                    <!-- Feature Rows -->
+                    <div class="col-span-3 border-b border-slate-200 my-2"></div>
+                    
+                    <div class="text-slate-600">Exports per month</div>
+                    <div class="text-slate-600 text-center">3</div>
+                    <div class="text-slate-900 font-bold text-center">Unlimited</div>
+
+                    <div class="col-span-3 border-b border-slate-200 my-2"></div>
+
+                    <div class="text-slate-600">Custom Fonts & Colors</div>
+                    <div class="text-red-500 text-center font-bold">✖</div>
+                    <div class="text-green-500 text-center font-bold">✔</div>
+
+                    <div class="col-span-3 border-b border-slate-200 my-2"></div>
+
+                    <div class="text-slate-600">Center Logo Watermark</div>
+                    <div class="text-red-500 text-center font-bold">✖</div>
+                    <div class="text-green-500 text-center font-bold">✔</div>
+
+                    <div class="col-span-3 border-b border-slate-200 my-2"></div>
+                    
+                    <div class="text-slate-600">Compliant File Naming</div>
+                    <div class="text-red-500 text-center font-bold">✖</div>
+                    <div class="text-green-500 text-center font-bold">✔</div>
+
+                    <div class="col-span-3 border-b border-slate-200 my-2"></div>
+                    
+                    <div class="text-slate-600">"Key Differences" Box</div>
+                    <div class="text-red-500 text-center font-bold">✖</div>
+                    <div class="text-green-500 text-center font-bold">✔</div>
+
+                     <div class="col-span-3 border-b border-slate-200 my-2"></div>
+
+                    <div class="text-slate-600">Saved Presets</div>
+                    <div class="text-red-500 text-center font-bold">✖</div>
+                    <div class="text-green-500 text-center font-bold">✔</div>
+
+                     <div class="col-span-3 border-b border-slate-200 my-2"></div>
+                    
+                    <div class="text-slate-600">"Made with" Branding</div>
+                    <div class="text-green-500 text-center font-bold">✔</div>
+                    <div class="text-slate-900 font-bold text-center">Removed</div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 text-sm text-slate-500">
+            <p>&copy; 2025 Before & After Pro. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Elements ---
+            const beforeUpload = document.getElementById('before-upload');
+            const afterUpload = document.getElementById('after-upload');
+            const logoUpload = document.getElementById('logo-upload');
+            const clinicNameInput = document.getElementById('clinic-name');
+            const treatmentNameInput = document.getElementById('treatment-name');
+            const patientNameInput = document.getElementById('patient-name');
+            const treatmentDateInput = document.getElementById('treatment-date');
+            const brandColorText = document.getElementById('brand-color-text');
+            const brandColorPicker = document.getElementById('brand-color-picker');
+            const brandColorPreview = document.getElementById('brand-color-preview');
+            const textColorText = document.getElementById('text-color-text');
+            const textColorPicker = document.getElementById('text-color-picker');
+            const textColorPreview = document.getElementById('text-color-preview');
+            const boxColorText = document.getElementById('box-color-text');
+            const boxColorPicker = document.getElementById('box-color-picker');
+            const boxColorPreview = document.getElementById('box-color-preview');
+            const differencesText = document.getElementById('differences-text');
+            const exportBtn = document.getElementById('export-btn');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const previewPlaceholder = document.getElementById('preview-placeholder');
+            const formatSelector = document.getElementById('format-selector');
+            const fontSelector = document.getElementById('font-selector');
+            const canvasContainer = document.getElementById('canvas-container');
+            const beforeSliderContainer = document.getElementById('before-slider-container');
+            const afterSliderContainer = document.getElementById('after-slider-container');
+            const beforeYSlider = document.getElementById('before-y-slider');
+            const afterYSlider = document.getElementById('after-y-slider');
+            const beforeXSlider = document.getElementById('before-x-slider');
+            const afterXSlider = document.getElementById('after-x-slider');
+            const beforeZoomSlider = document.getElementById('before-zoom-slider');
+            const afterZoomSlider = document.getElementById('after-zoom-slider');
+            const resetBtn = document.getElementById('reset-btn');
+            const presetNameInput = document.getElementById('preset-name');
+            const presetSaveBtn = document.getElementById('preset-save');
+            const presetSelect = document.getElementById('preset-select');
+            const presetDeleteBtn = document.getElementById('preset-delete');
+            const presetExportBtn = document.getElementById('preset-export');
+            const presetImportInput = document.getElementById('preset-import');
+            const planPill = document.getElementById('plan-pill');
+            const upgradeBtn = document.getElementById('upgrade-btn');
+
+            // --- Preview Elements ---
+            const beforePreview = document.getElementById('before-preview');
+            const afterPreview = document.getElementById('after-preview');
+            const logoPreview = document.getElementById('logo-preview');
+
+            // --- State Management ---
+            const state = {
+                beforeImage: null, afterImage: null, logoImage: null,
+                clinicName: '', treatmentName: '', patientName: '', treatmentDate: '',
+                aspectRatio: 'square', font: 'Inter',
+                beforeImageY: 0.5, afterImageY: 0.5,
+                beforeImageX: 0.5, afterImageX: 0.5,
+                beforeImageZoom: 1, afterImageZoom: 1,
+                brandColor: '#000000',
+                textColor: '#1e293b',
+                differences: '',
+                differencesBoxColor: '#000000',
+            };
+
+            // --- Initial Setup ---
+            exportBtn.disabled = true;
+
+            // --- Preset Functions ---
+            function presetFromState() {
+              return {
+                clinicName: state.clinicName,
+                treatmentName: state.treatmentName,
+                font: state.font,
+                brandColor: state.brandColor,
+                textColor: state.textColor,
+                differencesBoxColor: state.differencesBoxColor,
+                aspectRatio: state.aspectRatio,
+              };
+            }
+
+            function applyPreset(p) {
+              if (!p) return;
+              state.clinicName = p.clinicName || '';
+              state.treatmentName = p.treatmentName || '';
+              state.font = p.font || 'Inter';
+              state.brandColor = p.brandColor || '#000000';
+              state.textColor = p.textColor || '#1e293b';
+              state.differencesBoxColor = p.differencesBoxColor || '#000000';
+              state.aspectRatio = p.aspectRatio || 'square';
+
+              // reflect in UI controls:
+              clinicNameInput.value = state.clinicName;
+              treatmentNameInput.value = state.treatmentName;
+              fontSelector.value = state.font;
+              brandColorPicker.value = brandColorText.value = state.brandColor;
+              textColorPicker.value  = textColorText.value  = state.textColor;
+              boxColorPicker.value   = boxColorText.value   = state.differencesBoxColor;
+
+              // update aspect ratio radio
+              document.querySelector(`input[name="aspectRatio"][value="${state.aspectRatio}"]`)?.click();
+
+              // repaint
+              brandColorPreview.style.backgroundColor = state.brandColor;
+              textColorPreview.style.backgroundColor = state.textColor;
+              boxColorPreview.style.backgroundColor = state.differencesBoxColor;
+              updateCanvas();
+            }
+
+            function getAllPresets() {
+              try { return JSON.parse(localStorage.getItem('presets') || '{}'); }
+              catch { return {}; }
+            }
+
+            function setAllPresets(presets) {
+              localStorage.setItem('presets', JSON.stringify(presets));
+            }
+
+            function refreshPresetSelect() {
+              const presets = getAllPresets();
+              presetSelect.innerHTML = '<option value="">Load preset…</option>';
+              Object.keys(presets).forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name; opt.textContent = name; presetSelect.appendChild(opt);
+              });
+            }
+            
+            function saveLastUsed() {
+              localStorage.setItem('last_used', JSON.stringify(presetFromState()));
+            }
+
+            function loadLastUsed() {
+              try { applyPreset(JSON.parse(localStorage.getItem('last_used'))); } catch {}
+            }
+
+
+            // --- Core Functions ---
+            const handleImageUpload = (e, targetImage, previewElement, sliderContainer, sliderY, sliderX, sliderZoom) => {
+                const file = e.target.files[0]; if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        state[targetImage] = img;
+                        sliderY.value = 0.5;
+                        sliderX.value = 0.5;
+                        sliderZoom.value = 1;
+                        state[targetImage.replace('Image', 'ImageY')] = 0.5;
+                        state[targetImage.replace('Image', 'ImageX')] = 0.5;
+                        state[targetImage.replace('Image', 'ImageZoom')] = 1;
+                        sliderContainer.classList.remove('hidden');
+                        sliderY.disabled = false;
+                        sliderX.disabled = false;
+                        sliderZoom.disabled = false;
+                        updateCanvas();
+                    };
+                    img.src = event.target.result;
+                    previewElement.src = event.target.result;
+                    previewElement.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            };
+            
+            const drawImageCover = (ctx, img, x, y, w, h, offsetX = 0.5, offsetY = 0.5, zoom = 1) => {
+                const imgRatio = img.width / img.height;
+                const containerRatio = w / h;
+                
+                let sWidth = img.width / zoom;
+                let sHeight = img.height / zoom;
+                let sx = (img.width - sWidth) * offsetX;
+                let sy = (img.height - sHeight) * offsetY;
+
+                if (sWidth / sHeight > containerRatio) {
+                    sHeight = sWidth / containerRatio;
+                    sy = (img.height - sHeight) * offsetY;
+                } else {
+                    sWidth = sHeight * containerRatio;
+                    sx = (img.width - sWidth) * offsetX;
+                }
+
+                ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
+            };
+
+            const updateCanvas = () => {
+                if (!state.beforeImage || !state.afterImage) { 
+                    exportBtn.disabled = true; 
+                    return; 
+                }
+                previewPlaceholder.classList.add('hidden');
+                exportBtn.disabled = false;
+
+                const PADDING = 40; const HEADER_HEIGHT = 180; const HEADER_BG = '#FFFFFF';
+                const HEADER_BORDER = '#e2e8f0';
+                const LABEL_COLOR = '#FFFFFF';
+                let CANVAS_WIDTH = 1080; let CANVAS_HEIGHT = 1080;
+                switch(state.aspectRatio) {
+                    case 'portrait': CANVAS_HEIGHT = 1350; break;
+                    case 'landscape': CANVAS_HEIGHT = 566; break;
+                }
+                canvas.width = CANVAS_WIDTH; canvas.height = CANVAS_HEIGHT;
+                
+                ctx.fillStyle = 'white'; ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+                ctx.fillStyle = HEADER_BG; ctx.fillRect(0, 0, CANVAS_WIDTH, HEADER_HEIGHT);
+                ctx.fillStyle = HEADER_BORDER; ctx.fillRect(0, HEADER_HEIGHT - 2, CANVAS_WIDTH, 2);
+                ctx.fillStyle = state.textColor; 
+                ctx.textBaseline = 'middle';
+                
+                const clinicNameFont = `500 36px '${state.font}', sans-serif`;
+                ctx.font = clinicNameFont;
+                const clinicNameMetrics = ctx.measureText(state.clinicName);
+                const clinicNameWidth = state.clinicName ? clinicNameMetrics.width : 0;
+                
+                let logoWidth = 0;
+                let logoHeight = 0;
+                let logoGap = 0;
+                if (state.logoImage) {
+                    logoHeight = 60;
+                    const logoAspectRatio = state.logoImage.width / state.logoImage.height;
+                    logoWidth = logoHeight * logoAspectRatio;
+                    logoGap = state.clinicName ? 15 : 0;
+                }
+
+                const totalTopLineWidth = logoWidth + logoGap + clinicNameWidth;
+                let currentX = (CANVAS_WIDTH - totalTopLineWidth) / 2;
+                const topY = HEADER_HEIGHT * 0.45;
+
+                if (state.logoImage) {
+                    ctx.drawImage(state.logoImage, currentX, topY - logoHeight / 2, logoWidth, logoHeight);
+                    currentX += logoWidth + logoGap;
+                }
+
+                if (state.clinicName) {
+                    ctx.textAlign = 'left'; 
+                    ctx.fillText(state.clinicName, currentX, topY);
+                }
+
+                const treatmentFont = `400 30px '${state.font}', sans-serif`;
+                ctx.font = treatmentFont;
+                ctx.textAlign = 'center';
+                ctx.fillText(state.treatmentName, CANVAS_WIDTH / 2, HEADER_HEIGHT * 0.78);
+                
+                const imageAreaY = HEADER_HEIGHT;
+                const imageAreaHeight = CANVAS_HEIGHT - HEADER_HEIGHT;
+                if (state.aspectRatio === 'landscape') {
+                    const imageBoxWidth = CANVAS_WIDTH / 2;
+                    drawImageCover(ctx, state.beforeImage, 0, imageAreaY, imageBoxWidth, imageAreaHeight, state.beforeImageX, state.beforeImageY, state.beforeImageZoom);
+                    drawImageCover(ctx, state.afterImage, imageBoxWidth, imageAreaY, imageBoxWidth, imageAreaHeight, state.afterImageX, state.afterImageY, state.afterImageZoom);
+                } else {
+                    const imageBoxHeight = imageAreaHeight / 2;
+                    drawImageCover(ctx, state.beforeImage, 0, imageAreaY, CANVAS_WIDTH, imageBoxHeight, state.beforeImageX, state.beforeImageY, state.beforeImageZoom);
+                    drawImageCover(ctx, state.afterImage, 0, imageAreaY + imageBoxHeight, CANVAS_WIDTH, imageBoxHeight, state.afterImageX, state.afterImageY, state.afterImageZoom);
+                }
+                
+                if (state.logoImage && !isProUser) { // Show watermark for free users
+                    ctx.save();
+                    ctx.globalAlpha = 0.15;
+                    const watermarkMaxSize = CANVAS_WIDTH / 3;
+                    const logoAspectRatio = state.logoImage.width / state.logoImage.height;
+                    let watermarkWidth = watermarkMaxSize;
+                    let watermarkHeight = watermarkMaxSize / logoAspectRatio;
+                    if (watermarkHeight > imageAreaHeight * 0.8) {
+                        watermarkHeight = imageAreaHeight * 0.8;
+                        watermarkWidth = watermarkHeight * logoAspectRatio;
+                    }
+                    const watermarkX = (CANVAS_WIDTH - watermarkWidth) / 2;
+                    const watermarkY = HEADER_HEIGHT + (imageAreaHeight - watermarkHeight) / 2;
+                    ctx.drawImage(state.logoImage, watermarkX, watermarkY, watermarkWidth, watermarkHeight);
+                    ctx.restore();
+                }
+
+                const drawLabel = (text, xPos, yPos) => {
+                    ctx.font = `bold 24px '${state.font}', sans-serif`;
+                    const textMetrics = ctx.measureText(text);
+                    const labelWidth = textMetrics.width + 30; const labelHeight = 40;
+                    ctx.fillStyle = state.brandColor + 'BF';
+                    ctx.beginPath(); ctx.roundRect(xPos, yPos, labelWidth, labelHeight, [8]); ctx.fill();
+                    ctx.fillStyle = LABEL_COLOR; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    ctx.fillText(text, xPos + 15, yPos + labelHeight / 2);
+                };
+                if (state.aspectRatio === 'landscape') {
+                    drawLabel('Before', PADDING / 2, HEADER_HEIGHT + PADDING / 2);
+                    drawLabel('After', (CANVAS_WIDTH / 2) + PADDING / 2, HEADER_HEIGHT + PADDING / 2);
+                } else {
+                    drawLabel('Before', PADDING / 2, HEADER_HEIGHT + PADDING / 2);
+                    drawLabel('After', PADDING / 2, HEADER_HEIGHT + (CANVAS_HEIGHT - HEADER_HEIGHT)/2 + PADDING/2);
+                }
+
+                if (state.differences) {
+                    const lines = state.differences.split('\n');
+                    const fontSize = 22;
+                    ctx.font = `400 ${fontSize}px '${state.font}', sans-serif`;
+                    const lineHeight = fontSize * 1.4;
+                    const boxPadding = 20;
+                    const maxWidth = CANVAS_WIDTH / 2.5;
+                    let boxHeight = (lines.length * lineHeight) + (boxPadding * 2);
+                    let boxWidth = 0;
+                    lines.forEach(line => {
+                        const lineWidth = ctx.measureText(`• ${line}`).width;
+                        if (lineWidth > boxWidth) boxWidth = lineWidth;
+                    });
+                    boxWidth += boxPadding * 2;
+                    if (boxWidth > maxWidth) boxWidth = maxWidth;
+
+                    const boxX = CANVAS_WIDTH - boxWidth - PADDING / 2;
+                    const boxY = CANVAS_HEIGHT - boxHeight - PADDING / 2;
+                    
+                    const r = parseInt(state.differencesBoxColor.slice(1, 3), 16);
+                    const g = parseInt(state.differencesBoxColor.slice(3, 5), 16);
+                    const b = parseInt(state.differencesBoxColor.slice(5, 7), 16);
+                    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.6)`;
+                    ctx.beginPath();
+                    ctx.roundRect(boxX, boxY, boxWidth, boxHeight, [8]);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'top';
+                    lines.forEach((line, index) => {
+                        ctx.fillText(`• ${line}`, boxX + boxPadding, boxY + boxPadding + (index * lineHeight));
+                    });
+                }
+                
+                if (!isProUser) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                    ctx.font = `18px '${state.font}', sans-serif`;
+                    ctx.textAlign = 'right';
+                    ctx.fillText('Made with Before & After Pro', CANVAS_WIDTH - PADDING / 2, CANVAS_HEIGHT - PADDING / 2);
+                }
+            };
+
+            const generateFilename = (extension) => {
+                const clinic = state.clinicName.replace(/\s+/g, '-') || 'clinic';
+                const treatment = state.treatmentName.replace(/\s+/g, '-') || 'treatment';
+                const patient = state.patientName.replace(/\s+/g, '-') || 'patient';
+                const date = state.treatmentDate || new Date().toISOString().split('T')[0];
+                return `${clinic}_${treatment}_${patient}_${date}.${extension}`;
+            };
+
+            const resetApp = () => {
+                state.beforeImage = null; state.afterImage = null; state.logoImage = null;
+                state.clinicName = ''; state.treatmentName = ''; state.patientName = ''; state.treatmentDate = '';
+                state.brandColor = '#000000';
+                state.textColor = '#1e293b';
+                state.differences = '';
+                state.differencesBoxColor = '#000000';
+                clinicNameInput.value = ''; treatmentNameInput.value = ''; patientNameInput.value = '';
+                treatmentDateInput.value = ''; brandColorText.value = '#000000'; brandColorPicker.value = '#000000';
+                textColorText.value = '#1e293b'; textColorPicker.value = '#1e293b';
+                boxColorText.value = '#000000'; boxColorPicker.value = '#000000';
+                differencesText.value = '';
+                presetNameInput.value = '';
+                brandColorPreview.style.backgroundColor = '#000000';
+                textColorPreview.style.backgroundColor = '#1e293b';
+                boxColorPreview.style.backgroundColor = '#000000';
+                beforeUpload.value = ''; afterUpload.value = ''; logoUpload.value = '';
+                beforePreview.classList.add('hidden'); afterPreview.classList.add('hidden'); logoPreview.classList.add('hidden');
+                beforeSliderContainer.classList.add('hidden'); afterSliderContainer.classList.add('hidden');
+                beforeYSlider.disabled = true; afterYSlider.disabled = true;
+                beforeXSlider.disabled = true; afterXSlider.disabled = true;
+                beforeZoomSlider.disabled = true; afterZoomSlider.disabled = true;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                previewPlaceholder.classList.remove('hidden');
+                exportBtn.disabled = true;
+            };
+
+            // --- Event Listeners ---
+            resetBtn.addEventListener('click', resetApp);
+            
+            brandColorPreview.addEventListener('click', () => brandColorPicker.click());
+            textColorPreview.addEventListener('click', () => textColorPicker.click());
+            boxColorPreview.addEventListener('click', () => boxColorPicker.click());
+
+            brandColorPicker.addEventListener('input', (e) => {
+                const colorValue = e.target.value;
+                state.brandColor = colorValue;
+                brandColorText.value = colorValue;
+                brandColorPreview.style.backgroundColor = colorValue;
+                updateCanvas();
+            });
+
+            brandColorText.addEventListener('input', (e) => {
+                let colorValue = e.target.value;
+                if (/^#([0-9A-F]{3}){1,2}$/i.test(colorValue)) {
+                    state.brandColor = colorValue;
+                    brandColorPicker.value = colorValue;
+                    brandColorPreview.style.backgroundColor = colorValue;
+                    updateCanvas();
+                }
+            });
+
+            textColorPicker.addEventListener('input', (e) => {
+                const colorValue = e.target.value;
+                state.textColor = colorValue;
+                textColorText.value = colorValue;
+                textColorPreview.style.backgroundColor = colorValue;
+                updateCanvas();
+            });
+
+            textColorText.addEventListener('input', (e) => {
+                let colorValue = e.target.value;
+                if (/^#([0-9A-F]{3}){1,2}$/i.test(colorValue)) {
+                    state.textColor = colorValue;
+                    textColorPicker.value = colorValue;
+                    textColorPreview.style.backgroundColor = colorValue;
+                    updateCanvas();
+                }
+            });
+
+            boxColorPicker.addEventListener('input', (e) => {
+                const colorValue = e.target.value;
+                state.differencesBoxColor = colorValue;
+                boxColorText.value = colorValue;
+                boxColorPreview.style.backgroundColor = colorValue;
+                updateCanvas();
+            });
+
+            boxColorText.addEventListener('input', (e) => {
+                let colorValue = e.target.value;
+                if (/^#([0-9A-F]{3}){1,2}$/i.test(colorValue)) {
+                    state.differencesBoxColor = colorValue;
+                    boxColorPicker.value = colorValue;
+                    boxColorPreview.style.backgroundColor = colorValue;
+                    updateCanvas();
+                }
+            });
+            
+            differencesText.addEventListener('input', (e) => {
+                state.differences = e.target.value;
+                updateCanvas();
+            });
+
+            beforeYSlider.addEventListener('input', (e) => { state.beforeImageY = parseFloat(e.target.value); updateCanvas(); });
+            afterYSlider.addEventListener('input', (e) => { state.afterImageY = parseFloat(e.target.value); updateCanvas(); });
+            beforeXSlider.addEventListener('input', (e) => { state.beforeImageX = parseFloat(e.target.value); updateCanvas(); });
+            afterXSlider.addEventListener('input', (e) => { state.afterImageX = parseFloat(e.target.value); updateCanvas(); });
+            beforeZoomSlider.addEventListener('input', (e) => { state.beforeImageZoom = parseFloat(e.target.value); updateCanvas(); });
+            afterZoomSlider.addEventListener('input', (e) => { state.afterImageZoom = parseFloat(e.target.value); updateCanvas(); });
+            
+            fontSelector.addEventListener('change', (e) => { state.font = e.target.value; updateCanvas(); });
+            formatSelector.addEventListener('change', (e) => {
+                state.aspectRatio = e.target.value;
+                canvasContainer.className = 'w-full max-w-md bg-slate-100 rounded-lg flex items-center justify-center';
+                switch(state.aspectRatio) {
+                    case 'portrait': canvasContainer.classList.add('aspect-[1080/1350]'); break;
+                    case 'landscape': canvasContainer.classList.add('aspect-[1080/566]'); break;
+                    default: canvasContainer.classList.add('aspect-square'); break;
+                }
+                updateCanvas();
+            });
+            beforeUpload.addEventListener('change', (e) => handleImageUpload(e, 'beforeImage', beforePreview, beforeSliderContainer, beforeYSlider, beforeXSlider, beforeZoomSlider));
+            afterUpload.addEventListener('change', (e) => handleImageUpload(e, 'afterImage', afterPreview, afterSliderContainer, afterYSlider, afterXSlider, afterZoomSlider));
+            logoUpload.addEventListener('change', (e) => handleImageUpload(e, 'logoImage', logoPreview));
+            
+            clinicNameInput.addEventListener('input', (e) => { state.clinicName = e.target.value; updateCanvas(); });
+            treatmentNameInput.addEventListener('input', (e) => { state.treatmentName = e.target.value; updateCanvas(); });
+            patientNameInput.addEventListener('input', (e) => { state.patientName = e.target.value; });
+            treatmentDateInput.addEventListener('input', (e) => { state.treatmentDate = e.target.value; });
+
+            exportBtn.addEventListener('click', () => {
+                if (!isProUser) {
+                    let exportCount = parseInt(localStorage.getItem('exportCount') || '0');
+                    if (exportCount >= 3) {
+                        alert('You have reached your limit of 3 free exports. Please upgrade to Pro for unlimited exports.');
+                        return;
+                    }
+                    exportCount++;
+                    localStorage.setItem('exportCount', exportCount);
+                }
+                updateCanvas();
+                const link = document.createElement('a');
+                link.download = generateFilename('png');
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+
+            // --- Preset Event Listeners ---
+            presetSaveBtn.addEventListener('click', () => {
+              const name = (presetNameInput.value || '').trim();
+              if (!name) return alert('Name your preset first');
+              const presets = getAllPresets();
+              presets[name] = presetFromState();
+              setAllPresets(presets);
+              refreshPresetSelect();
+              alert('✅ Preset saved');
+            });
+
+            presetSelect.addEventListener('change', (e) => {
+              const name = e.target.value;
+              if (!name) return;
+              const presets = getAllPresets();
+              applyPreset(presets[name]);
+              presetNameInput.value = name;
+            });
+
+            presetDeleteBtn.addEventListener('click', () => {
+              const name = presetSelect.value;
+              if (!name) return alert('Pick a preset to delete');
+              const presets = getAllPresets();
+              delete presets[name];
+              setAllPresets(presets);
+              refreshPresetSelect();
+            });
+
+            presetExportBtn.addEventListener('click', () => {
+              const name = (presetSelect.value || presetNameInput.value || 'preset').replace(/\s+/g,'-');
+              const blob = new Blob([JSON.stringify(presetFromState(), null, 2)], { type: 'application/json' });
+              const a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = `${name}.bapreset.json`;
+              a.click(); URL.revokeObjectURL(a.href);
+            });
+
+            presetImportInput.addEventListener('change', (e) => {
+              const file = e.target.files?.[0]; if (!file) return;
+              const reader = new FileReader();
+              reader.onload = () => {
+                try {
+                  const p = JSON.parse(reader.result);
+                  const name = prompt('Name this preset:', file.name.replace(/\.bapreset\.json$/,''));
+                  if (!name) return;
+                  const presets = getAllPresets(); presets[name] = p; setAllPresets(presets);
+                  refreshPresetSelect(); applyPreset(p); alert('✅ Imported & applied');
+                } catch { alert('❌ Invalid preset file'); }
+              };
+              reader.readAsText(file);
+            });
+            
+            // --- Plan & Feature Gating ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const proKey = urlParams.get('key');
+            const isProUser = proKey === 'PRO-ALPHA-2025';
+
+            const proFeatureWrappers = [
+                document.getElementById('preset-section'),
+                patientNameInput.parentElement,
+                brandColorText.parentElement.parentElement,
+                textColorText.parentElement.parentElement,
+                boxColorText.parentElement.parentElement,
+                differencesText.parentElement,
+                document.querySelector('h3:nth-of-type(6)'), // Image Positioning Title
+                beforeSliderContainer,
+                afterSliderContainer,
+            ];
+
+            if (isProUser) {
+                planPill.textContent = 'Pro Plan';
+                planPill.classList.replace('bg-slate-200', 'bg-green-100');
+                planPill.classList.replace('text-slate-700', 'text-green-800');
+                upgradeBtn.classList.add('hidden');
+            } else {
+                planPill.textContent = 'Free Plan';
+                upgradeBtn.href = "#"; // Replace with your Stripe payment link
+                
+                proFeatureWrappers.forEach(el => {
+                    if (el) {
+                        el.style.opacity = '0.5';
+                        el.style.pointerEvents = 'none';
+                        el.title = 'Upgrade to Pro to use this feature.';
+                    }
+                });
+            }
+
+            loadLastUsed();
+            refreshPresetSelect();
+
+            ['input','change'].forEach(evt => {
+              document.body.addEventListener(evt, () => setTimeout(saveLastUsed, 0), true);
+            });
+
+            const setupDragAndDrop = (container, input) => {
+                container.addEventListener('dragover', (e) => { e.preventDefault(); container.classList.add('dragover'); });
+                container.addEventListener('dragleave', () => { container.classList.remove('dragover'); });
+                container.addEventListener('drop', (e) => {
+                    e.preventDefault(); container.classList.remove('dragover');
+                    input.files = e.dataTransfer.files;
+                    const changeEvent = new Event('change', { bubbles: true });
+                    input.dispatchEvent(changeEvent);
+                });
+            };
+            setupDragAndDrop(document.getElementById('before-container'), beforeUpload);
+            setupDragAndDrop(document.getElementById('after-container'), afterUpload);
+            setupDragAndDrop(document.getElementById('logo-container'), logoUpload);
+        });
+    </script>
+</body>
+</html>
