@@ -249,10 +249,6 @@
                     <div id="before-slider-container" class="hidden space-y-2">
                         <p class="text-sm font-medium text-slate-600">Before Image</p>
                         <div>
-                            <label for="before-zoom-slider" class="block text-xs font-medium text-slate-500">Zoom</label>
-                            <input type="range" id="before-zoom-slider" min="1" max="3" step="0.01" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
-                        </div>
-                        <div>
                             <label for="before-x-slider" class="block text-xs font-medium text-slate-500">Left/Right</label>
                             <input type="range" id="before-x-slider" min="0" max="1" step="0.01" value="0.5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
                         </div>
@@ -263,10 +259,6 @@
                     </div>
                     <div id="after-slider-container" class="mt-4 hidden space-y-2">
                          <p class="text-sm font-medium text-slate-600">After Image</p>
-                        <div>
-                            <label for="after-zoom-slider" class="block text-xs font-medium text-slate-500">Zoom</label>
-                            <input type="range" id="after-zoom-slider" min="1" max="3" step="0.01" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
-                        </div>
                         <div>
                             <label for="after-x-slider" class="block text-xs font-medium text-slate-500">Left/Right</label>
                             <input type="range" id="after-x-slider" min="0" max="1" step="0.01" value="0.5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" disabled>
@@ -322,12 +314,6 @@
 
                     <div class="col-span-3 border-b border-slate-200 my-2"></div>
 
-                    <div class="text-slate-600">Custom Fonts & Colors</div>
-                    <div class="text-red-500 text-center font-bold">✖</div>
-                    <div class="text-green-500 text-center font-bold">✔</div>
-
-                    <div class="col-span-3 border-b border-slate-200 my-2"></div>
-
                     <div class="text-slate-600">Center Logo Watermark</div>
                     <div class="text-red-500 text-center font-bold">✖</div>
                     <div class="text-green-500 text-center font-bold">✔</div>
@@ -356,6 +342,22 @@
                     <div class="text-green-500 text-center font-bold">✔</div>
                     <div class="text-slate-900 font-bold text-center">Removed</div>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-16 bg-slate-100 rounded-xl my-8">
+            <div class="max-w-3xl mx-auto text-center px-4">
+                <h2 class="text-3xl font-extrabold text-slate-900">Want to Showcase Your Results?</h2>
+                <p class="mt-4 text-lg text-slate-600">
+                    We also provide bespoke marketing services to help you get the most out of your incredible before-and-afters, including high-performance funnels, email campaigns, and Meta (Facebook & Instagram) advertising.
+                </p>
+                <div class="mt-8">
+                    <a href="mailto:nicholas.sawyer@optimedix.ai"
+                       class="inline-block bg-slate-800 hover:bg-slate-900 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">
+                       Contact Us
+                    </a>
                 </div>
             </div>
         </section>
@@ -400,8 +402,6 @@
             const afterYSlider = document.getElementById('after-y-slider');
             const beforeXSlider = document.getElementById('before-x-slider');
             const afterXSlider = document.getElementById('after-x-slider');
-            const beforeZoomSlider = document.getElementById('before-zoom-slider');
-            const afterZoomSlider = document.getElementById('after-zoom-slider');
             const resetBtn = document.getElementById('reset-btn');
             const presetNameInput = document.getElementById('preset-name');
             const presetSaveBtn = document.getElementById('preset-save');
@@ -424,7 +424,6 @@
                 aspectRatio: 'square', font: 'Inter',
                 beforeImageY: 0.5, afterImageY: 0.5,
                 beforeImageX: 0.5, afterImageX: 0.5,
-                beforeImageZoom: 1, afterImageZoom: 1,
                 brandColor: '#000000',
                 textColor: '#1e293b',
                 differences: '',
@@ -503,7 +502,7 @@
 
 
             // --- Core Functions ---
-            const handleImageUpload = (e, targetImage, previewElement, sliderContainer, sliderY, sliderX, sliderZoom) => {
+            const handleImageUpload = (e, targetImage, previewElement, sliderContainer, sliderY, sliderX) => {
                 const file = e.target.files[0]; if (!file) return;
                 const reader = new FileReader();
                 reader.onload = (event) => {
@@ -512,14 +511,11 @@
                         state[targetImage] = img;
                         sliderY.value = 0.5;
                         sliderX.value = 0.5;
-                        sliderZoom.value = 1;
                         state[targetImage.replace('Image', 'ImageY')] = 0.5;
                         state[targetImage.replace('Image', 'ImageX')] = 0.5;
-                        state[targetImage.replace('Image', 'ImageZoom')] = 1;
                         sliderContainer.classList.remove('hidden');
                         sliderY.disabled = false;
                         sliderX.disabled = false;
-                        sliderZoom.disabled = false;
                         updateCanvas();
                     };
                     img.src = event.target.result;
@@ -529,21 +525,21 @@
                 reader.readAsDataURL(file);
             };
             
-            const drawImageCover = (ctx, img, x, y, w, h, offsetX = 0.5, offsetY = 0.5, zoom = 1) => {
+            const drawImageCover = (ctx, img, x, y, w, h, offsetX = 0.5, offsetY = 0.5) => {
                 const imgRatio = img.width / img.height;
                 const containerRatio = w / h;
                 
-                let sWidth = img.width / zoom;
-                let sHeight = img.height / zoom;
-                let sx = (img.width - sWidth) * offsetX;
-                let sy = (img.height - sHeight) * offsetY;
+                let sWidth = img.width;
+                let sHeight = img.height;
+                let sx = 0;
+                let sy = 0;
 
-                if (sWidth / sHeight > containerRatio) {
-                    sHeight = sWidth / containerRatio;
-                    sy = (img.height - sHeight) * offsetY;
-                } else {
-                    sWidth = sHeight * containerRatio;
+                if (imgRatio > containerRatio) { // Image is wider than container
+                    sWidth = img.height * containerRatio;
                     sx = (img.width - sWidth) * offsetX;
+                } else { // Image is taller than container
+                    sHeight = img.width / containerRatio;
+                    sy = (img.height - sHeight) * offsetY;
                 }
 
                 ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
@@ -611,17 +607,20 @@
                 const imageAreaHeight = CANVAS_HEIGHT - HEADER_HEIGHT;
                 if (state.aspectRatio === 'landscape') {
                     const imageBoxWidth = CANVAS_WIDTH / 2;
-                    drawImageCover(ctx, state.beforeImage, 0, imageAreaY, imageBoxWidth, imageAreaHeight, state.beforeImageX, state.beforeImageY, state.beforeImageZoom);
-                    drawImageCover(ctx, state.afterImage, imageBoxWidth, imageAreaY, imageBoxWidth, imageAreaHeight, state.afterImageX, state.afterImageY, state.afterImageZoom);
+                    drawImageCover(ctx, state.beforeImage, 0, imageAreaY, imageBoxWidth, imageAreaHeight, state.beforeImageX, state.beforeImageY);
+                    drawImageCover(ctx, state.afterImage, imageBoxWidth, imageAreaY, imageBoxWidth, imageAreaHeight, state.afterImageX, state.afterImageY);
                 } else {
                     const imageBoxHeight = imageAreaHeight / 2;
-                    drawImageCover(ctx, state.beforeImage, 0, imageAreaY, CANVAS_WIDTH, imageBoxHeight, state.beforeImageX, state.beforeImageY, state.beforeImageZoom);
-                    drawImageCover(ctx, state.afterImage, 0, imageAreaY + imageBoxHeight, CANVAS_WIDTH, imageBoxHeight, state.afterImageX, state.afterImageY, state.afterImageZoom);
+                    drawImageCover(ctx, state.beforeImage, 0, imageAreaY, CANVAS_WIDTH, imageBoxHeight, state.beforeImageX, state.beforeImageY);
+                    drawImageCover(ctx, state.afterImage, 0, imageAreaY + imageBoxHeight, CANVAS_WIDTH, imageBoxHeight, state.afterImageX, state.afterImageY);
                 }
                 
-                if (state.logoImage && !isProUser) { // Show watermark for free users
+                const urlParams = new URLSearchParams(window.location.search);
+                const isProUser = urlParams.get('key') === 'PRO-ALPHA-2025';
+
+                if (state.logoImage && isProUser) { // Show watermark for Pro users
                     ctx.save();
-                    ctx.globalAlpha = 0.15;
+                    ctx.globalAlpha = 0.4;
                     const watermarkMaxSize = CANVAS_WIDTH / 3;
                     const logoAspectRatio = state.logoImage.width / state.logoImage.height;
                     let watermarkWidth = watermarkMaxSize;
@@ -697,11 +696,18 @@
             };
 
             const generateFilename = (extension) => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const isProUser = urlParams.get('key') === 'PRO-ALPHA-2025';
                 const clinic = state.clinicName.replace(/\s+/g, '-') || 'clinic';
                 const treatment = state.treatmentName.replace(/\s+/g, '-') || 'treatment';
-                const patient = state.patientName.replace(/\s+/g, '-') || 'patient';
-                const date = state.treatmentDate || new Date().toISOString().split('T')[0];
-                return `${clinic}_${treatment}_${patient}_${date}.${extension}`;
+                
+                if (isProUser) {
+                    const patient = state.patientName.replace(/\s+/g, '-') || 'patient';
+                    const date = state.treatmentDate || new Date().toISOString().split('T')[0];
+                    return `${clinic}_${treatment}_${patient}_${date}.${extension}`;
+                } else {
+                    return `${clinic}_${treatment}_${new Date().toISOString().split('T')[0]}.${extension}`;
+                }
             };
 
             const resetApp = () => {
@@ -725,7 +731,6 @@
                 beforeSliderContainer.classList.add('hidden'); afterSliderContainer.classList.add('hidden');
                 beforeYSlider.disabled = true; afterYSlider.disabled = true;
                 beforeXSlider.disabled = true; afterXSlider.disabled = true;
-                beforeZoomSlider.disabled = true; afterZoomSlider.disabled = true;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 previewPlaceholder.classList.remove('hidden');
                 exportBtn.disabled = true;
@@ -801,8 +806,6 @@
             afterYSlider.addEventListener('input', (e) => { state.afterImageY = parseFloat(e.target.value); updateCanvas(); });
             beforeXSlider.addEventListener('input', (e) => { state.beforeImageX = parseFloat(e.target.value); updateCanvas(); });
             afterXSlider.addEventListener('input', (e) => { state.afterImageX = parseFloat(e.target.value); updateCanvas(); });
-            beforeZoomSlider.addEventListener('input', (e) => { state.beforeImageZoom = parseFloat(e.target.value); updateCanvas(); });
-            afterZoomSlider.addEventListener('input', (e) => { state.afterImageZoom = parseFloat(e.target.value); updateCanvas(); });
             
             fontSelector.addEventListener('change', (e) => { state.font = e.target.value; updateCanvas(); });
             formatSelector.addEventListener('change', (e) => {
@@ -815,8 +818,8 @@
                 }
                 updateCanvas();
             });
-            beforeUpload.addEventListener('change', (e) => handleImageUpload(e, 'beforeImage', beforePreview, beforeSliderContainer, beforeYSlider, beforeXSlider, beforeZoomSlider));
-            afterUpload.addEventListener('change', (e) => handleImageUpload(e, 'afterImage', afterPreview, afterSliderContainer, afterYSlider, afterXSlider, afterZoomSlider));
+            beforeUpload.addEventListener('change', (e) => handleImageUpload(e, 'beforeImage', beforePreview, beforeSliderContainer, beforeYSlider, beforeXSlider));
+            afterUpload.addEventListener('change', (e) => handleImageUpload(e, 'afterImage', afterPreview, afterSliderContainer, afterYSlider, afterXSlider));
             logoUpload.addEventListener('change', (e) => handleImageUpload(e, 'logoImage', logoPreview));
             
             clinicNameInput.addEventListener('input', (e) => { state.clinicName = e.target.value; updateCanvas(); });
@@ -825,6 +828,8 @@
             treatmentDateInput.addEventListener('input', (e) => { state.treatmentDate = e.target.value; });
 
             exportBtn.addEventListener('click', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const isProUser = urlParams.get('key') === 'PRO-ALPHA-2025';
                 if (!isProUser) {
                     let exportCount = parseInt(localStorage.getItem('exportCount') || '0');
                     if (exportCount >= 3) {
@@ -900,14 +905,8 @@
 
             const proFeatureWrappers = [
                 document.getElementById('preset-section'),
-                patientNameInput.parentElement,
-                brandColorText.parentElement.parentElement,
-                textColorText.parentElement.parentElement,
-                boxColorText.parentElement.parentElement,
+                patientNameInput.parentElement.parentElement, // Target the grid container
                 differencesText.parentElement,
-                document.querySelector('h3:nth-of-type(6)'), // Image Positioning Title
-                beforeSliderContainer,
-                afterSliderContainer,
             ];
 
             if (isProUser) {
@@ -917,12 +916,14 @@
                 upgradeBtn.classList.add('hidden');
             } else {
                 planPill.textContent = 'Free Plan';
-                upgradeBtn.href = "#"; // https://buy.stripe.com/7sY28tbfjfVj8Kt3V90x200
+                upgradeBtn.href = "https://buy.stripe.com/7sY28tbfjfVj8Kt3V90x200";
                 
                 proFeatureWrappers.forEach(el => {
                     if (el) {
-                        el.style.opacity = '0.5';
-                        el.style.pointerEvents = 'none';
+                        const overlay = document.createElement('div');
+                        overlay.className = 'disabled-overlay';
+                        el.style.position = 'relative'; // Ensure parent is positioned
+                        el.appendChild(overlay);
                         el.title = 'Upgrade to Pro to use this feature.';
                     }
                 });
@@ -952,3 +953,4 @@
     </script>
 </body>
 </html>
+
