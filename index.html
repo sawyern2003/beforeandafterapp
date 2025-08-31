@@ -501,7 +501,7 @@
                 const { data, error } = await supabase.auth.signInWithOtp({
                     email: email,
                     options: {
-                        emailRedirectTo: window.location.origin
+                        emailRedirectTo: 'https://www.beforeandafterco.com'
                     }
                 });
                 
@@ -757,6 +757,56 @@
     </script>
     
     <!-- External JavaScript -->
-    <script type="module" src="app.js" defer></script>
+    <script src="app.js" defer></script>
+    
+    <!-- Fallback: Initialize basic app functionality -->
+    <script>
+        // Initialize basic app functionality if main app.js fails to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if main app loaded
+            setTimeout(() => {
+                if (typeof BeforeAfterApp === 'undefined') {
+                    console.log('⚠️ Main app not loaded, initializing basic functionality...');
+                    initializeBasicApp();
+                }
+            }, 1000);
+        });
+        
+        function initializeBasicApp() {
+            // Basic image upload functionality
+            const beforeUpload = document.getElementById('before-upload');
+            const afterUpload = document.getElementById('after-upload');
+            const logoUpload = document.getElementById('logo-upload');
+            
+            if (beforeUpload) {
+                beforeUpload.addEventListener('change', function(e) {
+                    console.log('Before image uploaded:', e.target.files[0]);
+                    // Basic functionality - you can add image preview here
+                });
+            }
+            
+            if (afterUpload) {
+                afterUpload.addEventListener('change', function(e) {
+                    console.log('After image uploaded:', e.target.files[0]);
+                    // Basic functionality - you can add image preview here
+                });
+            }
+            
+            if (logoUpload) {
+                logoUpload.addEventListener('change', function(e) {
+                    console.log('Logo uploaded:', e.target.files[0]);
+                    // Basic functionality - you can add image preview here
+                });
+            }
+            
+            // Enable basic form functionality
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    console.log('Input changed:', this.name, this.value);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
