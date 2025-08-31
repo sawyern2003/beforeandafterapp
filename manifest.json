@@ -1,0 +1,27 @@
+{
+    "name": "Before & After Pro",
+    "short_name": "B&A Pro",
+    "description": "Create professional before-and-after images for clinics instantly",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#4f46e5",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234f46e5' rx='20'/><text x='50' y='65' font-family='Arial' font-size='50' fill='white' text-anchor='middle'>📸</text></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234f46e5' rx='20'/><text x='50' y='65' font-family='Arial' font-size='50' fill='white' text-anchor='middle'>📸</text></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["productivity", "business", "medical"],
+    "lang": "en",
+    "dir": "ltr"
+} 

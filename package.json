@@ -1,0 +1,36 @@
+{
+  "name": "before-after-pro",
+  "version": "1.0.0",
+  "description": "Professional before-and-after image generator for clinics with Supabase backend",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve .",
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.56.1"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  },
+  "keywords": [
+    "before-after",
+    "clinic",
+    "image-generator",
+    "pwa",
+    "supabase",
+    "stripe"
+  ],
+  "author": "Before & After Pro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/before-after-pro.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

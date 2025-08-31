@@ -1,0 +1,357 @@
+/* Base Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63-21c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23e2e8f0'/%3E%3C/svg%3E");
+    background-size: 200px;
+    background-attachment: fixed;
+}
+
+/* File Input Styling */
+.file-input-container {
+    border: 2px dashed #cbd5e1;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-input-container:hover, 
+.file-input-container.dragover {
+    border-color: #4f46e5;
+    background-color: #f0f0ff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+.file-input-label {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Format Selection */
+.format-label {
+    border: 1px solid #cbd5e1;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    flex-grow: 1;
+    user-select: none;
+}
+
+.format-label:hover {
+    border-color: #4f46e5;
+    background-color: #f8fafc;
+}
+
+input[type="radio"]:checked + .format-label {
+    background-color: #4f46e5;
+    color: white;
+    border-color: #4f46e5;
+    transform: scale(1.02);
+}
+
+/* Date Input Styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.5);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    filter: invert(0.3);
+}
+
+/* Color Picker Styling */
+.color-picker-input {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.color-picker-input:focus + span {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* Disabled State Overlay */
+.disabled-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(241, 245, 249, 0.8);
+    z-index: 10;
+    cursor: not-allowed;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* Enhanced Button Styles */
+button {
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Range Slider Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4f46e5;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #3730a3;
+    transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4f46e5;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    background: #3730a3;
+    transform: scale(1.1);
+}
+
+/* Focus States */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #e2e8f0;
+    border-top: 2px solid #4f46e5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+    .file-input-container {
+        min-height: 100px;
+    }
+    
+    .format-label {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .grid-cols-1.md\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .w-full.max-w-5xl {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .py-16.md\\:py-20 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    
+    .text-4xl.md\\:text-5xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+}
+
+/* Accessibility Improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .file-input-container {
+        border-width: 3px;
+    }
+    
+    .format-label {
+        border-width: 2px;
+    }
+    
+    button {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .file-input-container:hover,
+    .file-input-container.dragover {
+        transform: none;
+    }
+    
+    button:hover:not(:disabled) {
+        transform: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .fixed,
+    button,
+    input,
+    select,
+    textarea {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .bg-white {
+        background: white !important;
+        border: 1px solid #000 !important;
+    }
+}
+
+/* Dark Mode Support (if needed in future) */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles can be added here */
+}
+
+/* Performance Optimizations */
+.file-input-container,
+.format-label,
+button,
+input,
+select,
+textarea {
+    will-change: transform, box-shadow;
+}
+
+/* Canvas Optimization */
+#canvas {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus Visible */
+:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+} 
